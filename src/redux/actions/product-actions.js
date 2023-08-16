@@ -1,4 +1,4 @@
-import { REQUEST_PRODUCTS, RECIEVED_PRODUCTS, RECIEVE_FAILED } from "../constants/action-types"
+import { REQUEST_PRODUCTS, RECIEVED_PRODUCTS, RECIEVE_FAILED, RECIEVE_SINGLE_PRODUCT } from "../constants/action-types"
 
 export const requestProducts = () => {
     return {
@@ -17,5 +17,12 @@ export const productRecieveFailed = (error) => {
     return {
         type: RECIEVE_FAILED,
         payload: error
+    }
+}
+
+export const selectedProduct = (product) => {
+    return {
+        type: RECIEVE_SINGLE_PRODUCT,
+        payload: product
     }
 }
