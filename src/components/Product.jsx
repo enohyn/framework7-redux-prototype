@@ -11,50 +11,42 @@ import {
 } from 'framework7-react';
 import axios from 'axios';
 import { getSingleProduct } from '../services/services';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectedProduct } from '../redux/actions/product-actions';
 
 export default (page) => {
+    const productId = page.id;
 
-    const pid = page.id;
-    const [product, setProducts]=useState();
+    const product = useSelector((state) => (state.product))
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        if (page.id != null && page.id > 0) {
-            // axios.get(`https://dummyjson.com/products/${page.id}`)
-            // .then( res=>{
-            //     console.log(res.data)
-            // })
-            // .catch(err=>{
-            //     console.log(err)
-            // })
+        if (productId != null && productId > 0) {
             const fetchSingleData = async () => {
-                const product = await getSingleProduct(page.id);
-                console.log(product)
-                setProducts(product)
+                const product = await getSingleProduct(productId);
+                dispatch(selectedProduct(product));
+
             }
             fetchSingleData();
+            console.log(product)
         }
-    }, [page.id])
+    }, [productId])
     return (
+
         <Page noNavbar={true} >
             <Navbar title='All Products' />
             <BlockTitle>
                 Single Product Represented in Cards
             </BlockTitle>
-
             <Card expandable>
                 <CardContent padding={false}>
                     <div
-                        // style={{
-                        //     backgroundImage: `url(${product.thumbnail})`,
-                        //     backgroundSize: 'cover',
-                        //     height: '240px',
-                        // }}
-                        style={ product?.thumbnail ? { 
+                        style={product?.thumbnail ? {
                             backgroundImage: `url(${product.thumbnail})`,
                             height: '240px',
-                            width:'100%',
-                            backgroundSize:'cover'
+                            width: '100%',
+                            backgroundSize: 'cover'
                         } : {}}
-
                     />
                     <Link
                         cardClose
@@ -64,14 +56,14 @@ export default (page) => {
                         iconF7="xmark_circle_fill"
                     />
                     <CardHeader style={{ display: 'flex', alignItems: 'center', paddingTop: '20px', paddingBottom: '20px' }}> <span style={{ height: '100%' }}>
-                        {product?.title ? product.title: ''} 
+                        {product?.title ? product.title : ''}
                         <br />Price:
-                        ${product?.price? product.price:''}
+                        ${product?.price ? product.price : ''}
                     </span>
                     </CardHeader>
                     <div className="card-content-padding">
                         <p>
-                            {product?.description ? product.description:''}
+                            {product?.description ? product.description : ''}
                         </p>
                         <p>
                             <Button fill round large cardClose>
