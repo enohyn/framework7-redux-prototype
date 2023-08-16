@@ -1,4 +1,4 @@
-import { REQUEST_PRODUCTS, RECIEVED_PRODUCTS, RECIEVE_FAILED, RECIEVE_SINGLE_PRODUCT } from "../constants/action-types"
+import { REQUEST_PRODUCTS, RECIEVE_FAILED, RECIEVE_SINGLE_PRODUCT, FETCH_PRODUCTS } from "../constants/action-types"
 
 
 const initialState = {
@@ -10,20 +10,23 @@ const initialState = {
 export const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case REQUEST_PRODUCTS:
-            {
-                return {
-                    ...state,
-                    loading: true
-                }
+            return {
+                ...state,
+                loading: true
+            }
+        //before introducing middleware
+        // case RECIEVED_PRODUCTS:
+        //     return {
+        //         ...state,
+        //         products: action.payload
+        //     }
+
+        case FETCH_PRODUCTS:
+            return {
+                ...state,
+                products: action.payload
             }
 
-        case RECIEVED_PRODUCTS:
-            {
-                return {
-                    ...state,
-                    products: action.payload
-                }
-            }
         case RECIEVE_FAILED:
             {
                 return {
@@ -38,12 +41,11 @@ export const productReducer = (state = initialState, action) => {
 
 export const selectedProductReducer = (state = {}, action) => {
     switch (action.type) {
-        case RECIEVE_SINGLE_PRODUCT: {
+        case RECIEVE_SINGLE_PRODUCT:
             return {
                 ...state,
                 ...action.payload
             }
-        }
         default:
             return state;
     }
