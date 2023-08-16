@@ -1,4 +1,4 @@
-import { REQUEST_PRODUCTS, RECIEVED_PRODUCTS, RECIEVE_FAILED } from "../constants/action-types"
+import { REQUEST_PRODUCTS, RECIEVED_PRODUCTS, RECIEVE_FAILED, RECIEVE_SINGLE_PRODUCT } from "../constants/action-types"
 
 
 const initialState = {
@@ -33,5 +33,18 @@ export const productReducer = (state = initialState, action) => {
             }
         default:
             return state
+    }
+}
+
+export const selectedProductReducer = (state = {}, action) => {
+    switch (action.type) {
+        case RECIEVE_SINGLE_PRODUCT: {
+            return {
+                ...state,
+                ...action.payload
+            }
+        }
+        default:
+            return state;
     }
 }
