@@ -4,9 +4,13 @@ import '../node_modules/framework7/framework7-bundle.css';
 import 'framework7-icons'
 import Product from './components/Product';
 import AccordionProducts from './components/AccordionProducts';
-import { fetchAllProducts } from './services/services';
 import { useDispatch } from 'react-redux';
-import { recievedProducts, requestProducts } from './redux/actions/product-actions';
+import { fetchProducts } from './redux/actions/product-actions';
+
+//before introducing middleware
+
+// import { fetchProducts, recievedProducts, requestProducts } from './redux/actions/product-actions';
+// import { fetchAllProducts } from './services/services';
 
 const routes = [
   {
@@ -31,13 +35,19 @@ const f7Params = {
 export default () => {
   const dispatch = useDispatch();
 
-  const fetchData = async () => {
-    const allProducts = await fetchAllProducts();
-    dispatch(recievedProducts(allProducts))
-  }
+  // before introducing middleware
+
+  // const fetchData = async () => { 
+  //   const allProducts = await fetchAllProducts();
+  //   dispatch(recievedProducts(allProducts))
+  // }
   useEffect(() => {
-    dispatch(requestProducts())
-    fetchData();
+    // before introducing middleware
+
+    // dispatch(requestProducts())
+    // fetchData();
+
+    dispatch(fetchProducts());
   })
 
   // Main Framework7 App component where we pass Framework7 params
