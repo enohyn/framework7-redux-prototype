@@ -9,10 +9,14 @@ import {
     Button,
     Link
 } from 'framework7-react';
-import axios from 'axios';
-import { getSingleProduct } from '../services/services';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectedProduct } from '../redux/actions/product-actions';
+import { fetchProduct } from '../redux/actions/product-actions';
+
+//before introducing middleware
+// import { selectedProduct } from '../redux/actions/product-actions';
+// import { getSingleProduct } from '../services/services';
+// import axios from 'axios';
+
 
 export default (page) => {
     const productId = page.id;
@@ -22,13 +26,14 @@ export default (page) => {
 
     useEffect(() => {
         if (productId != null && productId > 0) {
-            const fetchSingleData = async () => {
-                const product = await getSingleProduct(productId);
-                dispatch(selectedProduct(product));
+            //before introducing middleware
+            // const fetchSingleData = async () => {
+            //     const product = await getSingleProduct(productId);
+            //     dispatch(selectedProduct(product));
 
-            }
-            fetchSingleData();
-            console.log(product)
+            // }
+            // fetchSingleData();
+            dispatch(fetchProduct(productId))
         }
     }, [productId])
     return (
