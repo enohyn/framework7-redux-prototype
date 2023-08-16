@@ -43,7 +43,7 @@ export default (page) => {
             <BlockTitle>
                 Single Product Represented in Cards
             </BlockTitle>
-            <Card expandable>
+            <Card expandable padding={false} style={{marginTop:'32px'}}>
                 <CardContent padding={false}>
                     <div
                         style={product?.thumbnail ? {
